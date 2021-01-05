@@ -1,0 +1,76 @@
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block title %} Edit Profile{% endblock title %}
+{% block main_content %}
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="product-payment-inner-st">
+                        <ul id="myTabedu1" class="tab-review-design">
+                            <li class="active"><a href="#description">Edit Profile</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content custom-product-edit">
+                            <div class="product-tab-list tab-pane fade active in" id="description">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="review-content-section">
+                                            <div id="dropzone1" class="pro-ad">
+                                                <form action="{% url 'edit_profile_save' %}" method="POST" class="dropzone dropzone-custom needsclick add-professors" id="demo1-upload">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>Username</label>
+                                                                <input name="username" type="text" class="form-control" value="{{   user.username }}" disabled="disabled" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Email</label>
+                                                                <input name="email" type="text" class="form-control" value="{{   user.email }}" disabled="disabled" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>First Name</label>
+                                                                <input name="firstname" type="text" class="form-control" value="{{ user.first_name }}" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Last Name</label>
+                                                                <input name="lastname" type="text" class="form-control" value="{{   user.last_name }}" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Password</label>
+                                                                <input name="password" type="password" class="form-control" placeholder="Change Password only if you need to change"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                {% if messages %}
+                                                                    {% for message in messages %}
+                                                                        {% if message.tags == 'error' %}
+                                                                            <div class="alert alert-danger">{{ message }}</div>
+                                                                        {% endif %}
+                                                                        {% if message.tags == 'success' %}
+                                                                            <div class="alert alert-success">{{ message }}</div>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="payment-address">
+                                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Update Profile</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}

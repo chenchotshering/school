@@ -1,0 +1,67 @@
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block title %}Manage Student{% endblock title %}
+{% block main_content %}
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+            <div class="data-table-area mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sparkline13-list">
+                            <div class="sparkline13-hd">
+                                <div class="main-sparkline13-hd">
+                                    <h1>Manage Student Details</h1>
+                                </div>
+                            </div>
+                            <div class="sparkline13-graph">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th data-editable="true">First Name</th>
+                                                <th data-editable="true">Last Name</th>
+                                                <th data-editable="true">User Name</th>
+                                                <th data-editable="true">Gender</th>
+                                                <th data-editable="true">Course</th>
+                                                <th data-field="email" data-editable="true">Email</th>
+                                                <th>Profile Picture</th>
+                                                <th data-editable="true">Start Session</th>
+                                                <th data-editable="true">End Session</th>
+                                                <th data-editable="true">Address</th>
+                                                <th data-editable="true">Last Login</th>
+                                                <th data-editable="true">Date Joined</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for student in students %}
+                                            <tr>
+                                                <td>{{ student.admin.id }}</td>
+                                                <td>{{ student.admin.first_name }}</td>
+                                                <td>{{ student.admin.last_name }}</td>
+                                                <td>{{ student.admin.username }}</td>
+                                                <td>{{ student.gender }}</td>
+                                                <td>{{ student.course_id.name }}</td>
+                                                <td>{{ student.admin.email }}</td>
+                                                <td><img src="{{ student.profile_pic }}" style="width:100px;" /></td>
+                                                <td>{{ student.session_year_id.session_start_year }}</td>
+                                                <td>{{ student.session_year_id.session_end_year }}</td>
+                                                <td>{{ student.address }}</td>
+                                                <td>{{ student.admin.last_login }}</td>
+                                                <td>{{ student.admin.date_joined }}</td>
+                                                <td><a href="{% url 'edit_student' student_id=student.admin.id %}" class="btn btn-success">Edit</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}

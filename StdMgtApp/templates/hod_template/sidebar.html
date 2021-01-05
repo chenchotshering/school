@@ -1,0 +1,86 @@
+{% load static %}
+<nav id="sidebar" class="">
+            <div class="sidebar-header">
+                <a href="admin_home"><img class="main-logo" src="{% static 'adminplugins/img/logo/logo.png' %}" alt="" /></a>
+                <strong><a href="index.html"><img src="{% static 'adminplugins/img/logo/logosn.png'%}" alt="" /></a></strong>
+            </div>
+            <div class="left-custom-menu-adp-wrap comment-scrollbar">
+                <nav class="sidebar-nav left-sidebar-menu-pro">
+                    <ul class="metismenu" id="menu1">
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Profile</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                {% url 'admin_profile' as admin_profile %}
+                                <li><a title="Staff Feedback Message" href="{% url 'admin_profile' %}"><span class="mini-sub-pro">Edit Profile</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Staffs</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                 {% url 'edit_staff' staff_id=id as edit_staff %}
+                                <li><a title="All Staffs" href="{% url 'manage_staff' %}"><span class="mini-sub-pro">Manage Staff</span></a></li>
+                                <li><a title="Add Staff" href="{% url 'add_staff' %}"><span class="mini-sub-pro">Add Staff</span></a></li>
+                                <li><a title="Edit Staff" href="edit_staff"><span class="mini-sub-pro">Edit Staff</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">Students</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                 {% url 'edit_student' student_id=id as edit_student %}
+                                <li><a title="All Students" href="{% url 'manage_student' %}"><span class="mini-sub-pro">Manage Students</span></a></li>
+                                <li><a title="Add Students" href="{% url 'add_student' %}"><span class="mini-sub-pro">Add Student</span></a></li>
+                                <li><a title="Edit Students" href="edit_student"><span class="mini-sub-pro">Edit Student</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Courses</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                {% url 'edit_course' course_id=id as edit_course %}
+                                <li><a title="All Courses" href="{% url 'manage_course' %}"><span class="mini-sub-pro">Manage Courses</span></a></li>
+                                <li><a title="Add Courses" href="{% url 'add_course' %}"><span class="mini-sub-pro">Add Course</span></a></li>
+                                <li><a title="Edit Courses" href="edit_course"><span class="mini-sub-pro">Edit Course</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Sessions</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                {% url 'manage_session' as manage_session %}
+                                <li><a title="All Courses" href="{% url 'manage_session' %}"><span class="mini-sub-pro">Manage Session</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Subjects</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                {% url 'edit_subject' subject_id=id as edit_subject %}
+                                <li><a title="All Courses" href="{% url 'manage_subject' %}"><span class="mini-sub-pro">Manage Subjects</span></a></li>
+                                <li><a title="Add Courses" href="{% url 'add_subject' %}"><span class="mini-sub-pro">Add Subjects</span></a></li>
+                                <li><a title="Edit Courses" href="edit_subject"><span class="mini-sub-pro">Edit Subject</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Leave</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                {% url 'edit_subject' subject_id=id as edit_subject %}
+                                <li><a title="Staff Leave" href="{% url 'staff_leave_view' %}"><span class="mini-sub-pro">Staff Leaves</span></a></li>
+                                <li><a title="Student Leave" href="student_leave_view"><span class="mini-sub-pro">Student Leaves</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Feedback</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                {% url 'staff_feedback_msg' as staff_feedback_msg %}
+                                <li><a title="Staff Feedback Message" href="{% url 'staff_feedback_msg' %}"><span class="mini-sub-pro">Staff Feedback</span></a></li>
+                                <li><a title="Student Feedback Message" href="{% url 'student_feedback_msg' %}"><span class="mini-sub-pro">Student Feedback</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Attendance</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                {% url 'admin_view_attendance' as admin_view_attendance %}
+                                <li><a title="Staff Feedback Message" href="{% url 'admin_view_attendance' %}"><span class="mini-sub-pro">View Attendance</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </nav>

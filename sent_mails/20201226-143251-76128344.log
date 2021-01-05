@@ -1,0 +1,21 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: student1@gmail.com
+Date: Sat, 26 Dec 2020 08:32:51 -0000
+Message-ID: <160897157169.5676.9987442337352446304@DESKTOP-JTB2IKE>
+
+
+To initiate Pasword Reset student1 for Student Management System
+Click the link below
+
+http://127.0.0.1:8000/accounts/reset/OA/afhser-eed08930dbd8755292c3fbd829e3e945/
+
+If Lin is not working Copy and past into URL
+
+Thanks
+Student Management System
+
+-------------------------------------------------------------------------------

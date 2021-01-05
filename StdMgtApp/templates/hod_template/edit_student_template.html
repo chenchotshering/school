@@ -1,0 +1,32 @@
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block title %}Edit Student Details{% endblock title %}
+{% block main_content %}
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-payment-inner-st">
+                            <ul id="myTabedu1" class="tab-review-design">
+                                <li class="active"><a href="#description">Edit Student | Username: {{ username }} #ID {{ id }}</a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content custom-product-edit">
+                                <div class="product-tab-list tab-pane fade active in" id="description">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="review-content-section">
+                                                <div id="dropzone1" class="pro-ad">
+                                                    {% url 'edit_student_save' as action_path %}
+                                                    {% include 'hod_template/form_template.html' with messages=messages form=form action_path=action_path button_text="Update Student" %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock main_content %}

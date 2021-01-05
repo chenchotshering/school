@@ -1,0 +1,121 @@
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block title %}Staff Feedback Reply{% endblock title %}
+{% block main_content %}
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="product-payment-inner-st">
+                        <ul id="myTabedu1" class="tab-review-design">
+                            <li class="active"><a href="#description">Staff Feedbacks</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content custom-product-edit">
+                            <div class="product-tab-list tab-pane fade active in" id="description">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="review-content-section">
+                                            <div id="dropzone1" class="pro-ad">
+                                                <table class="table">
+                                                    <tr>
+                                                        <th>Feedback ID</th>
+                                                        <th>Staff ID</th>
+                                                        <th>Staff Name</th>
+                                                        <th>Message</th>
+                                                        <th>Send On</th>
+                                                        <th>Reply</th>
+                                                    </tr>
+                                                    {% for feedback in feedbacks %}
+                                                        <tr>
+                                                            <td>{{ feedback.id }}</td>
+                                                            <td>{{ feedback.staff_id.id }}</td>
+                                                            <td>{{ feedback.staff_id.admin.first_name }}{{ feedback.staff_id.admin.last_name }}</td>
+                                                            <td>{{ feedback.feedback }}</td>
+                                                            <td>{{ feedback.created_at }}</td>
+                                                            {% if feedback.feedback_reply != "" %}
+                                                                <td>{{ feedback.feedback_reply }}</td>
+                                                            {% else %}
+                                                                <td>
+                                                                    <button type="button" class="btn btn-info btn-sm reply_open_modal" data-toggle="modal" data-target="#reply_modal">Reply</button>
+                                                                </td>
+                                                            {% endif %}
+                                                        </tr>
+
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <!-- Modal -->
+        <div id="reply_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Feedback Reply</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p><b>Reply To:</b>&nbsp;<span id="reply_name"></span></p>
+                        <input type="hidden" id="reply_id" name="reply_id">
+                        <textarea class="form-control" rows="5" id="reply_message"> </textarea>
+                        <button id="reply_btn" class="btn btn-info btn-block">Reply</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock main_content %}
+{% block custom_js %}
+    <script>
+        $(document).ready(function (){
+            $(".reply_open_modal").click(function (){
+                var id=$(this).parents("tr").children("td:eq(0)").text();
+                var name=$(this).parents("tr").children("td:eq(2)").text();
+                $("#reply_id").val(id);
+                $("#reply_name").text(name);
+            });
+
+            $(document).on("click","#reply_btn", function(){
+
+                $(this).attr("disabled","disabled")
+                $(this).text("Sending Reply....")
+
+                var id = $("#reply_id").val();
+                var message = $("#reply_message").val();
+
+                $.ajax({
+                    url:'{% url 'staff_feedback_msg_replied' %}',
+                    type: 'POST',
+                    data:{ id:id, message:message},
+                })
+                    .done(function (response) {
+                        if(response==="True"){
+                            alert("Reply Sent")
+                        }else{
+                            alert("Error in Sending Reply")
+                        }
+                        location.reload()
+                    })
+                    .fail(function (response) {
+                        alert("Error in Sending Reply")
+                    })
+                })
+        });
+    </script>
+{% endblock custom_js %}

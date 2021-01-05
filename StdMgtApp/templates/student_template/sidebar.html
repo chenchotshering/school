@@ -1,0 +1,39 @@
+{% load static %}
+<nav id="sidebar" class="">
+            <div class="sidebar-header">
+                <a href="index.html"><img class="main-logo" src="{% static 'adminplugins/img/logo/logo.png' %}" alt="" /></a>
+                <strong><a href="index.html"><img src="{% static 'adminplugins/img/logo/logosn.png'%}" alt="" /></a></strong>
+            </div>
+            <div class="left-custom-menu-adp-wrap comment-scrollbar">
+                <nav class="sidebar-nav left-sidebar-menu-pro">
+                    <ul class="metismenu" id="menu1">
+                        <li><a title="Home" href="{% url 'student_home' %}"><span class="mini-sub-pro">Home</span></a></li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Profile</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                {% url 'student_profile' as student_profile %}
+                                <li><a title="Staff Feedback Message" href="{% url 'student_profile' %}"><span class="mini-sub-pro">Edit Profile</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Attendance</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="View Attendance" href="{% url 'student_view_attendance' %}"><span class="mini-sub-pro">View Attendance</span></a></li>
+                            </ul>
+                        </li>
+                         <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Leave</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="View Attendance" href="{% url 'student_apply_leave' %}"><span class="mini-sub-pro">Apply Leave</span></a></li>
+                            </ul>
+                        </li>
+                         <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Feedback</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="View Attendance" href="{% url 'student_feedback' %}"><span class="mini-sub-pro">Feedback</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </nav>

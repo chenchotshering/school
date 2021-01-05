@@ -1,0 +1,121 @@
+{% extends 'hod_template/base_template.html' %}
+{% load static %}
+{% block title %}Add Student{% endblock title %}
+{% block main_content %}
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-payment-inner-st">
+                            <ul id="myTabedu1" class="tab-review-design">
+                                <li class="active"><a href="#description">Add Student</a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content custom-product-edit">
+                                <div class="product-tab-list tab-pane fade active in" id="description">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="review-content-section">
+                                                <div id="dropzone1" class="pro-ad">
+                                                    {% url 'add_student_save' as action_path %}
+                                                    {% include 'hod_template/form_template.html' with messages=messages form=form action_path=action_path button_text="Add New Student" %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-tab-list tab-pane fade" id="reviews">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="review-content-section">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <form id="acount-infor" action="#" class="acount-infor">
+                                                            <div class="devit-card-custom">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" name="email" placeholder="Email">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input name="phoneno" type="number" class="form-control" placeholder="Phone">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input name="password" type="password" class="form-control" placeholder="Password">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input name="confarmpassword" type="password" class="form-control" placeholder="Confirm Password">
+                                                                </div>
+                                                                <a href="#" class="btn btn-primary waves-effect waves-light">Submit</a>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock main_content %}
+{% block custom_js %}
+    <script>
+        $(document).ready(function () {
+           $("#id_email").keyup(function () {
+               var email = $(this).val();
+               if(email!='') {
+                   $.ajax({
+                       url: '{% url 'check_email_exist' %}',
+                       type: 'POST',
+                       data: {email: email}
+                   })
+                       .done(function (response) {
+                           console.log(response);
+                           if (response == "True") {
+                               $(".email_error").remove();
+                               $("<span class='email_error' style='font-weight: bolder;color: darkred;padding: 5px'>Email Already Exists!!</span>").insertAfter("#id_email");
+                           } else {
+                               $(".email_error").remove();
+                               $("<span class='email_error' style='font-weight: bolder;color: green;padding: 5px'>Email Available</span>").insertAfter("#id_email");
+
+                           }
+                       })
+                       .fail(function () {
+                           console.log("Failed")
+                       })
+                    }
+                    else {
+                        $(".email_error").remove();
+               }
+               });
+
+           $("#id_username").keyup(function () {
+               var username = $(this).val();
+               if(username!='') {
+                   $.ajax({
+                       url: '{% url 'check_username_exist' %}',
+                       type: 'POST',
+                       data: {username: username}
+                   })
+                       .done(function (response) {
+                           console.log(response);
+                           if (response == "True") {
+                               $(".username_error").remove();
+                               $("<span class='username_error' style='font-weight: bolder;color: darkred;padding: 5px'>Username Already Exists!!</span>").insertAfter("#id_username");
+                           } else {
+                               $(".username_error").remove();
+                               $("<span class='username_error' style='font-weight: bolder;color: green;padding: 5px'>Username Available</span>").insertAfter("#id_username");
+
+                           }
+                       })
+                       .fail(function () {
+                           console.log("Failed")
+                       })
+                    }else {
+                    $(".username_error").remove();
+               }
+           });
+        });
+    </script>
+{% endblock custom_js %}

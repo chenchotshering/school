@@ -1,0 +1,142 @@
+{% extends 'staff_template/base_template.html' %}
+{% load static %}
+{% block title %}Add Attendance{% endblock title %}
+{% block main_content %}
+    <div class="single-pro-review-area mt-t-30 mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-payment-inner-st">
+                            <ul id="myTabedu1" class="tab-review-design">
+                                <li class="active"><a href="#description">Add Attendance</a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content custom-product-edit">
+                                <div class="product-tab-list tab-pane fade active in" id="description">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="review-content-section">
+                                                <div id="dropzone1" class="pro-ad">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                <div class="form-group">
+                                                                    <label>Subject</label>
+                                                                    <select class="form-control" name="subject" id="subject">
+                                                                        {% for subject in subjects %}
+                                                                            <option value="{{ subject.id }}">{{ subject.name }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Session Year</label>
+                                                                    <select class="form-control" name="session_year" id="session_year">
+                                                                        {% for session_year in session_years %}
+                                                                            <option value="{{ session_year.id }}">{{ session_year.session_start_year }} To {{ session_year.session_end_year }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    {% if messages %}
+                                                                        {% for message in messages %}
+                                                                            {% if message.tags == 'error' %}
+                                                                                <div class="alert alert-danger">{{ message }}</div>
+                                                                            {% endif %}
+                                                                            {% if message.tags == 'success' %}
+                                                                                <div class="alert alert-success">{{ message }}</div>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="payment-adress">
+                                                                    <button type="button" class="btn btn-primary waves-effect waves-light" id="featch_student">Fetch Attendance</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="student_data">
+
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+    $(document).ready(function (){
+        $("#featch_student").click(function(){
+            var subject = $("#subject").val()
+            var session_year = $("#session_year").val()
+
+            $.ajax({
+                url:'{% url 'get_students' %}',
+                type: 'POST',
+                data:{ subject:subject, session_year:session_year},
+            })
+            .done(function (response) {
+                var json_data = JSON.parse(response);
+                console.log(json_data)
+                var div_data="<div class='form-group-sm'><label>Attendance Date : </label><input type='date' name='attendance_date' id='attendance_date' class='form-control'></div><div class='form-group'><div class='row'>";
+                for (key in json_data){
+                     div_data+="<input type='checkbox' checked='checked' name='student_data[]' value='"+json_data[key]['id']+"'>&nbsp;&nbsp;"+json_data[key]['name']+"<br/>"
+                }
+                div_data+="</div></div>";
+                div_data+="<div class='form-group'>";
+                div_data+="<button id='save_attendance' class='btn-success' type='button'>Save Attendance</button>";
+                div_data+="</div>";
+                $("#student_data").html(div_data);
+            })
+            .fail(function (response) {
+                alert("Error in Fetching Student")
+            })
+            $(document).on("click","#save_attendance", function(){
+
+                $(this).attr("disabled","disabled")
+                $(this).text("Saving Attendance Data....")
+
+                var student_data=$("input[name='student_data[]']").map(function () {
+                    if($(this).is(":checked")){
+                        return {"id": $(this).val(),"status":1};
+                        }
+                    else {
+                        return {"id": $(this).val(),"status":0};
+                    }
+                }).get()
+
+                var attendance_date = $("#attendance_date").val();
+                var subject_id = $("#subject").val();
+                var session_year_id = $("#session_year").val();
+                console.log(student_data)
+                student_data=JSON.stringify(student_data)
+
+                $.ajax({
+                    url:'{% url 'save_attendance_data' %}',
+                    type: 'POST',
+                    data:{ student_ids:student_data, attendance_date:attendance_date, subject_id:subject_id, session_year_id:session_year_id},
+                    })
+                    .done(function (response) {
+                        if(response==="OK"){
+                            alert("Attendance Saved")
+                        }else{
+                            alert("Error in Saving Data")
+                        }
+                        location.reload()
+                        })
+                    .fail(function (response) {
+                        alert("Error in Saving Student")
+                        })
+                })
+        })
+    })
+</script>
+{% endblock custom_js %}
